@@ -7,8 +7,8 @@
 
 ./getGameData.py
 
-# scrape data from https://github.com/Kal-El-Git/FootballData/blob/master/openFootballData/
-# which is forked from https://github.com/jokecamp/FootballData
+ scrape data from https://github.com/Kal-El-Git/FootballData/blob/master/openFootballData/
+ which is forked from https://github.com/jokecamp/FootballData
 
-# information includes age, caps, goals.....for each team
-# and game results since 2008
+ information includes age, caps, goals.....for each team
+ and game results since 2008

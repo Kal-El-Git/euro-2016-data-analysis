@@ -25,25 +25,28 @@ game_text = json.loads(game_response.read())
 
 games_by_countries = []
 # extract games only played by targeted countries
-"""
+
 for game in game_text:
 	if game['team1']['id'] in country_dict or game['team2']['id'] in country_dict:
 		games_by_countries.append(game)
 
-"""
 
-"""
+
+
 # for a specific country, total games played and total winning 
-country_id = 109 # Germany
+country_id = 127 # Germany:109 Portugla: 120, Poland: 127 
 wins = 0
 plays =0
 for game in games_by_countries:
 	if game['team1']['id']==country_id or game['team2']['id']==country_id:
 		plays+=1
 	if ( game['team1']['id']==country_id and game['winner']==1 ) or (game['team2']['id']==country_id and game['winner']==2):
-	wins+=1
+		wins+=1
+print "plays: ",plays
+print "wins: ", wins 
 
 
+"""
 # for games played two countries in history 
 cid1 = 127 #poland
 cid2 = 120 #portugal
@@ -60,6 +63,8 @@ for game in games_by_countries:
 print "played: ", total_games, "   poland wins: ", team1_win
 """		
 
+
+"""
 #
 # Regression of Winning on scores and scores by the opponent
 # 
@@ -101,11 +106,13 @@ log = sm.Logit(df['wins'],df['score_diff'])
 result = log.fit()
 
 print result.summary()
+"""
 
 # plot
+"""
 fig = sm.graphics.plot_fit(result,0)
 ax.set_ylabel("winning")
 ax.set_xlabel("Score difference")
 ax.set_title("Logistic regression")
 plt.show()
-
+"""

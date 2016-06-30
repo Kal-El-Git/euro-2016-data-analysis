@@ -2,7 +2,7 @@
 
 # Usage 
 
-./getTeamData.py <teamname>
+./getTeamData.py teamname
 
 
 ./getGameData.py

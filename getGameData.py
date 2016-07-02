@@ -16,34 +16,73 @@ for country in countryJsonObj:
 	if country['name'] in country_list:
 		cid = country['id']
 		country_dict[cid]=country['name']
-
+#print country_dict
 
 # games data from github 
 game_response = urllib.urlopen('https://raw.githubusercontent.com/Kal-El-Git/FootballData/master/openFootballData/games.json')
 game_text = json.loads(game_response.read())
 
 
-games_by_countries = []
 # extract games only played by targeted countries
-
+"""
+games_by_countries = []
 for game in game_text:
-	if game['team1']['id'] in country_dict or game['team2']['id'] in country_dict:
+	if game['team1']['country_id'] in country_dict or game['team2']['country_id'] in country_dict:
 		games_by_countries.append(game)
-
-
+"""
 
 
 # for a specific country, total games played and total winning 
+"""
 country_id = 127 # Germany:109 Portugla: 120, Poland: 127 
 wins = 0
 plays =0
-for game in games_by_countries:
-	if game['team1']['id']==country_id or game['team2']['id']==country_id:
+for game in game_text:
+	if game['team1']['country_id']==country_id or game['team2']['country_id']==country_id:
 		plays+=1
-	if ( game['team1']['id']==country_id and game['winner']==1 ) or (game['team2']['id']==country_id and game['winner']==2):
+	if ( game['team1']['country_id']==country_id and game['winner']==1 ) or (game['team2']['country_id']==country_id and game['winner']==2):
 		wins+=1
 print "plays: ",plays
 print "wins: ", wins 
+"""
+
+# compare two teams' statistic in a histogram
+cid1=  109 # germany
+cid2=  116 # italy
+
+wins_1 = 0
+plays_1 =0
+for game in game_text:
+	if game['team1']['country_id']==cid1 or game['team2']['country_id']==cid1:
+		plays_1+=1
+	if ( game['team1']['country_id']==cid1 and game['winner']==1 ) or (game['team2']['country_id']==cid1 and game['winner']==2):
+		wins_1+=1
+
+wins_2 = 0
+plays_2 =0
+for game in game_text:
+	if game['team1']['country_id']==cid2 or game['team2']['country_id']==cid2:
+		plays_2+=1
+	if ( game['team1']['country_id']==cid2 and game['winner']==1 ) or (game['team2']['country_id']==cid2 and game['winner']==2):
+		wins_2+=1
+# plot 
+x= np.arange(2)
+games= [plays_1,plays_2]
+wins=[wins_1,wins_2]
+
+fig, ax =plt.subplots()
+rects1 = plt.bar(x,games,color='g')
+rects2 = plt.bar(x,wins,color='b')
+
+ax.set_ylabel("Games")
+ax.legend((rects1[0],rects2[0]),('Games',"Win"))
+plt.title("Statistics of two teams")
+plt.xlabel("Team")
+
+print "Team1", "games: ",games[0],"wins: ", wins[0],"winning rate:", wins[0]/float(games[0])
+print "Team2", "games: ",games[1],"wins: ", wins[1],"winning rate:",wins[1]/float(games[1])
+
+plt.show() 
 
 
 """
@@ -106,13 +145,4 @@ log = sm.Logit(df['wins'],df['score_diff'])
 result = log.fit()
 
 print result.summary()
-"""
-
-# plot
-"""
-fig = sm.graphics.plot_fit(result,0)
-ax.set_ylabel("winning")
-ax.set_xlabel("Score difference")
-ax.set_title("Logistic regression")
-plt.show()
 """

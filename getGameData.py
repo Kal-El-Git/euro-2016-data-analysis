@@ -3,7 +3,7 @@ import pandas as pd
 import statsmodels.api as sm
 import numpy as np
 import matplotlib.pyplot as plt
-
+import sys 
 
 # country data from github 
 response = urllib.urlopen('https://raw.githubusercontent.com/Kal-El-Git/FootballData/master/openFootballData/countries.json')
@@ -16,7 +16,7 @@ for country in countryJsonObj:
 	if country['name'] in country_list:
 		cid = country['id']
 		country_dict[cid]=country['name']
-#print country_dict
+print country_dict
 
 # games data from github 
 game_response = urllib.urlopen('https://raw.githubusercontent.com/Kal-El-Git/FootballData/master/openFootballData/games.json')
@@ -47,8 +47,17 @@ print "wins: ", wins
 """
 
 # compare two teams' statistic in a histogram
-cid1=  109 # germany
-cid2=  116 # italy
+team1 = sys.argv[1]
+team2 = sys.argv[2]
+cid1,cid2=0,0
+
+for cid in country_dict:
+	if country_dict[cid].lower()== team1.lower():
+ 		cid1 = cid
+	if country_dict[cid].lower()==team2.lower():
+		cid2= cid
+
+ 
 
 wins_1 = 0
 plays_1 =0

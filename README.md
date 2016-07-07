@@ -5,7 +5,7 @@
 ./getTeamData.py teamname
 
 
-./getGameData.py
+./getGameData.py teamname1 teamname2
 
  scrape data from https://github.com/Kal-El-Git/FootballData/blob/master/openFootballData/
  which is forked from https://github.com/jokecamp/FootballData
